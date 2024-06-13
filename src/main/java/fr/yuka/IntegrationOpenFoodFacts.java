@@ -18,15 +18,15 @@ public class IntegrationOpenFoodFacts {
 
         Path path = Paths.get("D:/diginamic/12. acces_base_données_JPA/TP/open-food-facts.csv");
         List<String> allLines = Files.readAllLines(path);
-        List<String> lines = allLines.subList(1, Math.min(51, allLines.size())); 
+        List<String> lignes = allLines.subList(1, Math.min(51, allLines.size())); 
         ArrayList<Produit> listeProduits = new ArrayList<>();
 
         em.getTransaction().begin();
 
         try {
-            for (String line : lines) {
-                line = line.replace("_", " ").replace("*", " ").toLowerCase();
-                String[] col = line.split("\\|");
+            for (String ligne : lignes) {
+                ligne = ligne.replace("_", " ").replace("*", " ").toLowerCase();
+                String[] col = ligne.split("\\|");
 
                 if (col.length >= 30) {
                     String categorieStr = col[0];
@@ -57,7 +57,7 @@ public class IntegrationOpenFoodFacts {
                     Produit produit = new Produit(categorie, marque, scoreNutritionnel, ingredients, additifs, allergenes);
                     listeProduits.add(produit);
                 } else {
-                    System.out.println("La ligne a moins de 30 colonnes : " + line);
+                    System.out.println("La ligne a moins de 30 colonnes : " + ligne);
                 }
             }
 
